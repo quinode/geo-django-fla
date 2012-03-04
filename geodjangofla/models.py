@@ -178,7 +178,7 @@ class Arrondissement(models.Model, GEOFLAManager):
             GFFM(('X_CHF_LIEU', 'Y_CHF_LIEU'), 'chf_lieu', 'to_point'),
             GFFM(('X_CENTROID', 'Y_CENTROID'), 'centroid', 'to_point'),
             GFFM(('CODE_DEPT', 'NOM_DEPT'), 'departement', 'get_instance',
-                                            instance_class=Departement)]
+                                            instance_class=Departement)]                                            
     id_geofla = models.IntegerField(primary_key=True)
     departement = models.ForeignKey("Departement", null=True, blank=True)
     code_arr = models.CharField(verbose_name=u"Code arrondissement",
@@ -208,6 +208,7 @@ class Canton(models.Model, GEOFLAManager):
          'CODE_DEPT','NOM_DEPT','CODE_REG','NOM_REGION']
     GEOFLAFIELDS = [
             GFFM('ID_GEOFLA', 'id_geofla', int),
+            GFFM('CODE_DEPT', 'code_dept', 'to_unicode'),
             GFFM('CODE_CANT', 'code_cant', 'to_unicode'),
             GFFM('CODE_CHF', 'code_chf', 'to_unicode'),
             GFFM('NOM_CHF', 'nom_chf', 'to_unicode'),
@@ -215,8 +216,8 @@ class Canton(models.Model, GEOFLAManager):
             GFFM(('X_CENTROID', 'Y_CENTROID'), 'centroid', 'to_point'),
             GFFM(('CODE_ARR', 'CODE_DEPT', 'NOM_DEPT'), 'arrondissement',
                             'get_instance', instance_class=Arrondissement)]
-
     id_geofla = models.IntegerField(primary_key=True)
+    code_dept = models.CharField(verbose_name=u"Code département", max_length=2)
     code_cant = models.CharField(verbose_name=u"Code canton", max_length=2)
     code_chf = models.CharField(verbose_name=u"Code du chef lieu", null=True,
                                 blank=True, max_length=3)
